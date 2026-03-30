@@ -14,7 +14,7 @@ class BookSeeder extends Seeder
         
         for ($i = 1; $i <= 15; $i++) {
             DB::table('books')->insert([
-                // Perbaikan ada di baris ini: mengganti catchPhrase dengan sentence
+                
                 'title' => $faker->sentence(3), 
                 'author' => $faker->name,
                 'year' => $faker->year,

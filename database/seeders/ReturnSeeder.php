@@ -12,16 +12,15 @@ class ReturnSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
         
-        // Ambil detail peminjaman yang BUKU-NYA SUDAH DIKEMBALIKAN
         $returnedDetails = DB::table('loan_detail')->where('is_return', 1)->pluck('id')->toArray();
 
         foreach ($returnedDetails as $detailId) {
-            $kenaDenda = $faker->boolean(20); // 20% peluang telat mengembalikan (kena denda)
+            $kenaDenda = $faker->boolean(20); 
             
             DB::table('returns')->insert([
                 'loan_detail_id' => $detailId,
                 'charge' => $kenaDenda,
-                'amount' => $kenaDenda ? $faker->numberBetween(10, 50) * 1000 : 0, // Denda 10rb - 50rb
+                'amount' => $kenaDenda ? $faker->numberBetween(10, 50) * 1000 : 0, 
             ]);
         }
     }
