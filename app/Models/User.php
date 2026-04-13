@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+// use Laravel\Sanctum\HasApiTokens dihapus dari sini
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    // HasApiTokens dihapus dari baris di bawah ini:
+    use HasFactory, Notifiable;
 
-    // Tambahkan 3 baris ini
     protected $primaryKey = 'npm';
     public $incrementing = false;
     protected $keyType = 'integer';
@@ -28,4 +28,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Relasi: Satu User punya BANYAK Peminjaman
+    public function loans()
+    {
+        return $this->hasMany(Loan::class, 'user_npm', 'npm');
+    }
 }
